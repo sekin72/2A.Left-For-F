@@ -26,3 +26,5 @@ Left 4 F is a turn based RPG game where you try to graduate from Bilkent CS depa
 
 Requirements: 
 The project will be written on C# using Visual Studio. It will be a Winform application and MonoGame Library will be used. The relation between the weapons and enemies, being weak or superior to one another, will be unique and challenging. The project will be completed before May 7, 2018.
+
+Meeting Logs: https://docs.google.com/document/d/1ofP7o7bWnFITsO_N64VjHN2XltZJ_rkDULZZcIDLA4I/edit?usp=sharing
