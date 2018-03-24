@@ -8,35 +8,30 @@
  */
 
 import java.util.Random;
-	
-public class LevelControl {
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-	/**
-	 * 
-	 */
-	
+public class LevelControl {
 
 	private boolean gamePause = false;
 	private Menu menu,pausemenu;
 	public static LevelControl Instance;
 	private Player player;
-	private Enemy enemies[];
+    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    ArrayList<Item> items = new ArrayList<Item>();
 	private int difficulty;
 	private Random rand = new Random();
 	private InputManager input;
 
 	public LevelControl() {
-		// TODO Auto-generated constructor stub
 		player=new Player("Ali",null);
 		difficulty=1;
 		input=new InputManager();
+		positionEnemies();
+		positionItems();
 	}
 
-	/**
-	 * @param currentLevel
-	 */
 	public LevelControl(int currentLevel, Player playah) {
-		// TODO Auto-generated constructor stub
 		player=playah;
 		difficulty=currentLevel;
 	}
@@ -49,7 +44,10 @@ public class LevelControl {
 		}
 		else
 		{
+			checkGameEnd();
 			input.Update();
+			findEnemies();
+			findCollision();
 		}
 	}
 	
@@ -69,16 +67,42 @@ public class LevelControl {
 	{
 		for(int i=0;i<difficulty;i++)
 		{
-			enemies[i] = new Enemy();
-			enemies[i].setX(rand.nextInt(400));
+			enemies.add(new Quiz(null,"quiz",10));
+			enemies.get(i).setX(rand.nextInt(400));
 		}
+		for(int i=0;i<difficulty;i++)
+		{
+			enemies.add(new Midterm(rand.nextInt(400), 0, null, "Midterm" ,0,20));
+		}
+		for(int i=0;i<difficulty;i++)
+		{
+			enemies.add(new Project(rand.nextInt(400), 0,  null, "Project"));
+		}
+		enemies.add(new Teacher(true, rand.nextInt(400), 0, null, "Teacher"));
 	}
 	
+	private void positionItems()
+	{
+	    items.add(new StatEnchancement(1, "",rand.nextInt(400), 0, null));
+	    items.add(new SkillEnchancement(1, "",rand.nextInt(400), 0, null));
+	    items.add(new Food(rand.nextInt(400), 0, null, 1, 1, 1, ""));
+    	items.add(new EnergyDrink(rand.nextInt(400), 0, null, 1, 1));
+	}
+	
+	private Boolean findCollision()
+	{
+		for(int i=0;i<items.size();i++)
+		{
+			if(player.xPos==items.get(i).xPos)
+				return true;
+		}
+		return false;
+	}
 	private Boolean findEnemies()
 	{
 		for(int i=0;i<difficulty;i++)
 		{
-			if(player.xPos==enemies[i].getX())
+			if(player.xPos==enemies.get(i).getX())
 				return true;
 		}
 		return false;
