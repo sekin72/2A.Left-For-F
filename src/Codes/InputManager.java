@@ -21,6 +21,7 @@ public class InputManager {
 	
 	public void Update()
 	{
+		System.out.println("a");
 		while(true)
 		{
 			String newcommand = keyboard.next();

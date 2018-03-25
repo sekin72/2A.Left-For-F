@@ -29,6 +29,7 @@ public class LevelControl {
 		input=new InputManager();
 		positionEnemies();
 		positionItems();
+		GameManager.Instance.changeUI("Game");
 	}
 
 	public LevelControl(int currentLevel, Player playah) {
@@ -47,7 +48,7 @@ public class LevelControl {
 			checkGameEnd();
 			input.Update();
 			findEnemies();
-			findCollision();
+			useItem(findItemCollision());
 		}
 	}
 	
@@ -81,6 +82,26 @@ public class LevelControl {
 		enemies.add(new Teacher(true, rand.nextInt(400), 0, null, "Teacher"));
 	}
 	
+	private void useItem(Item item)
+	{
+		if(item == null)
+			return;
+		if(item.getClass() == Food.class)
+		{
+		}
+		if(item.getClass() == EnergyDrink.class)
+		{
+			
+		}
+		if(item.getClass() == SkillEnchancement.class)
+		{
+			
+		}
+		if(item.getClass() == StatEnchancement.class)
+		{
+			
+		}
+	}
 	private void positionItems()
 	{
 	    items.add(new StatEnchancement(1, "",rand.nextInt(400), 0, null));
@@ -89,15 +110,16 @@ public class LevelControl {
     	items.add(new EnergyDrink(rand.nextInt(400), 0, null, 1, 1));
 	}
 	
-	private Boolean findCollision()
+	private Item findItemCollision()
 	{
 		for(int i=0;i<items.size();i++)
 		{
 			if(player.xPos==items.get(i).xPos)
-				return true;
+				return items.get(i);
 		}
-		return false;
+		return null;
 	}
+	
 	private Boolean findEnemies()
 	{
 		for(int i=0;i<difficulty;i++)

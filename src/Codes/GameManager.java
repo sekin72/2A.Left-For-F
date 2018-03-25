@@ -34,17 +34,19 @@ public class GameManager {
 
 	public void Update() {
 		while (true) {
-			if (gameOn) {
+			if (gameOn) 
+			{
 				levelController.Update();
-			} else {
+			} 
+			else 
+			{
+				//Menüler iþ yapacak burda
 			}
 		}
 	}
 
 	public void changeUI(String newMenu) {
 		switch (newMenu) {
-		case "Main":
-			break;
 		case "Options":
 			break;
 		case "Tutorials":
@@ -58,6 +60,8 @@ public class GameManager {
 		case "Pause":
 			break;
 		case "MainMenu":
+			break;
+		case "Game":
 			break;
 		default:
 			break;
