@@ -30,11 +30,16 @@ public class LevelControl {
 		positionEnemies();
 		positionItems();
 		GameManager.Instance.changeUI("Game");
+		//this.addKeyListener(new InputManager());  BUNU Level Paneline ekle
 	}
 
 	public LevelControl(int currentLevel, Player playah) {
 		player=playah;
 		difficulty=currentLevel;
+		input=new InputManager();
+		positionEnemies();
+		positionItems();
+		GameManager.Instance.changeUI("Game");
 	}
 	
 	public void Update()
@@ -46,15 +51,12 @@ public class LevelControl {
 		else
 		{
 			checkGameEnd();
-			input.Update();
 			findEnemies();
-			useItem(findItemCollision());
+			Item temp = findItemCollision();
+			if(temp !=null)
+				player.addItem(temp);
+				
 		}
-	}
-	
-	public Menu getUI()
-	{
-		return menu;
 	}
 	
 	public Boolean checkGameEnd()
@@ -86,20 +88,26 @@ public class LevelControl {
 	{
 		if(item == null)
 			return;
+
+		if(item.getClass() == Coffee.class)
+		{
+			player.useCoffee();
+		}
 		if(item.getClass() == Food.class)
 		{
+			player.useFood("");
 		}
 		if(item.getClass() == EnergyDrink.class)
 		{
-			
+			player.useEnergyDrink();
 		}
 		if(item.getClass() == SkillEnchancement.class)
 		{
-			
+			player.equipEnchancement((Enchancement) item); 
 		}
 		if(item.getClass() == StatEnchancement.class)
 		{
-			
+			player.equipEnchancement((Enchancement) item); 
 		}
 	}
 	private void positionItems()
@@ -122,6 +130,11 @@ public class LevelControl {
 	
 	private Boolean findEnemies()
 	{
+		if(enemies.size()==0)
+		{
+			System.out.println("enemy yok");
+			return false;
+		}
 		for(int i=0;i<difficulty;i++)
 		{
 			if(player.xPos==enemies.get(i).getX())

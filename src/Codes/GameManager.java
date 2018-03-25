@@ -15,21 +15,21 @@ public class GameManager {
 
 	public GameManager() {
 		currentLevel = 1;
-		player = new Player("Ali", null);
+		Instance=this;
 		// activeMenu = new MainMenu();
 		// music=defaultMusic();
 
 	}
 
-	public GameManager(int level, Player playah) {
+	public GameManager(int level) {
+		Instance=this;
 		currentLevel = level;
-		player = playah;
 	}
 
 	private void createNewLevel() {
+		player = new Player("Ali", null);
 		gameOn = true;
-		levelController = new LevelControl(currentLevel, player);
-		activeMenu = levelController.getUI();
+		levelController = new LevelControl();
 	}
 
 	public void Update() {
@@ -40,6 +40,7 @@ public class GameManager {
 			} 
 			else 
 			{
+				createNewLevel();
 				//Menüler iþ yapacak burda
 			}
 		}
@@ -60,6 +61,7 @@ public class GameManager {
 		case "Pause":
 			break;
 		case "MainMenu":
+			activeMenu = new MainMenu();
 			break;
 		case "Game":
 			break;

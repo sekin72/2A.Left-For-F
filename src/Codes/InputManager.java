@@ -1,51 +1,43 @@
 /**
  * 
  */
-import java.util.Scanner;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 /**
  * @author Kaan
  *
  */
-public class InputManager {
+public class InputManager extends KeyAdapter{
 
-	/**
-	 * 
-	 */
-	
-	private Scanner keyboard;
-
-	public InputManager() {
-		// TODO Auto-generated constructor stub
-		keyboard = new Scanner(System.in);
-	}
-	
-	public void Update()
-	{
-		System.out.println("a");
-		while(true)
+	@Override
+    public void keyPressed(KeyEvent event) {
+    	char ch = event.getKeyChar();
+    	switch(ch)
 		{
-			String newcommand = keyboard.next();
-			switch(newcommand)
-			{
-				case "A":
-					LevelControl.Instance.move("Left");
-					break;
-				case "S":
-					LevelControl.Instance.move("Down");
-					break;
-				case "D":
-					LevelControl.Instance.move("Right");
-					break;
-				case "W":
-					LevelControl.Instance.move("Up");
-					break;
-				case "P":
-					LevelControl.Instance.Pause();
-					break;
-				default:
-					break;
-			}
+			case 'A':
+			case 'a':
+				LevelControl.Instance.move("Left");
+				break;
+			case 'S':
+			case 's':
+				LevelControl.Instance.move("Down");
+				break;
+			case 'D':
+			case 'd':
+				LevelControl.Instance.move("Right");
+				break;
+			case 'W':
+			case 'w':
+				LevelControl.Instance.move("Up");
+				break;
+			case 'P':
+			case 'p':
+				LevelControl.Instance.Pause();
+				break;
+			default:
+				break;
 		}
-	}
-
+    	System.out.println(event.getKeyChar());
+    }
+	
 }
