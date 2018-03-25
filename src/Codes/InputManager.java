@@ -17,23 +17,23 @@ public class InputManager extends KeyAdapter{
 		{
 			case 'A':
 			case 'a':
-				LevelControl.Instance.move("Left");
+				GameManager.Instance.levelController.move("Left");
 				break;
 			case 'S':
 			case 's':
-				LevelControl.Instance.move("Down");
+				GameManager.Instance.levelController.move("Down");
 				break;
 			case 'D':
 			case 'd':
-				LevelControl.Instance.move("Right");
+				GameManager.Instance.levelController.move("Right");
 				break;
 			case 'W':
 			case 'w':
-				LevelControl.Instance.move("Up");
+				GameManager.Instance.levelController.move("Up");
 				break;
 			case 'P':
 			case 'p':
-				LevelControl.Instance.Pause();
+				GameManager.Instance.levelController.Pause();
 				break;
 			default:
 				break;

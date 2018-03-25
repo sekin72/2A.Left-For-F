@@ -1,5 +1,7 @@
 import java.awt.Graphics;
 
+import javax.swing.ImageIcon;
+
 /**
  * @author Kaan
  *
@@ -12,7 +14,7 @@ public class GameManager {
 	private Player player;
 	private Menu activeMenu;
 	public boolean gameOn = false;
-	private LevelControl levelController;
+	public LevelControl levelController;
 	public static GameManager Instance;
 
 	public GameManager() {
@@ -28,8 +30,8 @@ public class GameManager {
 		currentLevel = level;
 	}
 
-	private void createNewLevel() {
-		player = new Player("Ali", null);
+	public void createNewLevel() {
+		player = new Player("Ali", new ImageIcon(".\\kahve.png").getImage());
 		gameOn = true;
 		levelController = new LevelControl();
 	}
@@ -42,7 +44,6 @@ public class GameManager {
 			} 
 			else 
 			{
-				//createNewLevel();
 				//Menüler iþ yapacak burda
 			}
 		}
@@ -63,10 +64,12 @@ public class GameManager {
 		case "Pause":
 			break;
 		case "MainMenu":
-			activeMenu = new GameFrame();
+			activeMenu = new MainMenu();
 			activeMenu.setVisible(true);
 			break;
 		case "Game":
+			activeMenu = new GameFrame(player);
+			activeMenu.setVisible(true);
 			break;
 		default:
 			break;

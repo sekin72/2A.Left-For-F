@@ -8,6 +8,11 @@
  */
 
 import java.util.Random;
+
+import javax.swing.ImageIcon;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -15,22 +20,29 @@ public class LevelControl {
 
 	private boolean gamePause = false;
 	private Menu menu,pausemenu;
-	public static LevelControl Instance;
-	public Player player;
+	private Player player;
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     ArrayList<Item> items = new ArrayList<Item>();
 	private int difficulty;
 	private Random rand = new Random();
 	private InputManager input;
 
+	public int getPlayerX()
+	{
+		return player.xPos;
+	}
+	public int getPlayerY()
+	{
+		return player.yPos;
+	}
+	
 	public LevelControl() {
-		player=new Player("Ali",null);
+		player=new Player("Ali", new ImageIcon(".\\kahve.png").getImage());
 		difficulty=1;
 		input=new InputManager();
 		positionEnemies();
 		positionItems();
 		GameManager.Instance.changeUI("Game");
-		//this.addKeyListener(new InputManager());  BUNU Level Paneline ekle
 	}
 
 	public LevelControl(int currentLevel, Player playah) {
@@ -55,7 +67,6 @@ public class LevelControl {
 			Item temp = findItemCollision();
 			if(temp !=null)
 				player.addItem(temp);
-				
 		}
 	}
 	
@@ -176,5 +187,6 @@ public class LevelControl {
 		gamePause=true;
 		menu=pausemenu;
 	}
+	
 
 }
