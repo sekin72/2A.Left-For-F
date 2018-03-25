@@ -1,4 +1,8 @@
 
+import java.awt.event.KeyEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javax.swing.Icon;
 
 /*
@@ -12,7 +16,7 @@ import javax.swing.Icon;
  * @author ömer
  */
 
-public class GameFrame extends Menu {
+public class GameFrame extends Menu implements EventHandler<KeyEvent>{
 
     /**
      * Creates new form GameFrame
@@ -40,8 +44,8 @@ public class GameFrame extends Menu {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 0));
-        jButton1.setFont(new java.awt.Font("Britannic Bold", 1, 12)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Britannic Bold", 1, 10)); // NOI18N
         jButton1.setForeground(new java.awt.Color(240, 32, 32));
         jButton1.setText("X");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -50,22 +54,25 @@ public class GameFrame extends Menu {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(469, 0, 41, 21);
+        jButton1.setBounds(700, 0, 50, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ömer\\Desktop\\player.gif")); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(404, 213, 96, 148);
+        jLabel1.setBounds(0, 240, 96, 148);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ömer\\Desktop\\labirent.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ömer\\Desktop\\map.png")); // NOI18N
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 3, 510, 370);
+        jLabel2.setBounds(0, 3, 750, 390);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        GameManager.Instance.changeUI("MainMenu");
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -108,4 +115,19 @@ public class GameFrame extends Menu {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void handle(KeyEvent t) {
+        /*if(t.getKeyChar() == 'A'){
+            jLabel1.setBounds(150, 240, 96, 148);
+            
+        }
+        else
+            jLabel1.setBounds(0, 120, 96, 148); */
+    }
+
+    @Override
+    public void handle(Event t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
