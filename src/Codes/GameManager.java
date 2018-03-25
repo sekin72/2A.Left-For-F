@@ -12,17 +12,14 @@ public class GameManager {
 	private Audio music;
 	private int currentLevel;
 	private Player player;
-	private Menu activeMenu;
+	private Menu activeMenu = new MainMenu();
 	public boolean gameOn = false;
-	public LevelControl levelController;
+	public LevelControl levelController=null;
 	public static GameManager Instance;
 
 	public GameManager() {
 		currentLevel = 1;
 		Instance=this;
-		// activeMenu = new MainMenu();
-		// music=defaultMusic();
-
 	}
 
 	public GameManager(int level) {
@@ -44,7 +41,6 @@ public class GameManager {
 			} 
 			else 
 			{
-				//Menüler iþ yapacak burda
 			}
 		}
 	}
@@ -64,11 +60,15 @@ public class GameManager {
 		case "Pause":
 			break;
 		case "MainMenu":
+			activeMenu.setVisible(false);
 			activeMenu = new MainMenu();
+			activeMenu.setSize(810, 400);
 			activeMenu.setVisible(true);
 			break;
 		case "Game":
+			activeMenu.setVisible(false);
 			activeMenu = new GameFrame(player);
+			activeMenu.setSize(750, 420);
 			activeMenu.setVisible(true);
 			break;
 		default:

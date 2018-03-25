@@ -18,15 +18,13 @@ import java.util.ArrayList;
 
 public class LevelControl {
 
-	private boolean gamePause = false;
-	private Menu menu,pausemenu;
-	private Player player;
+	public boolean gamePause = false;
+	public Player player;
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     ArrayList<Item> items = new ArrayList<Item>();
 	private int difficulty;
 	private Random rand = new Random();
-	private InputManager input;
-
+	
 	public int getPlayerX()
 	{
 		return player.xPos;
@@ -39,7 +37,6 @@ public class LevelControl {
 	public LevelControl() {
 		player=new Player("Ali", new ImageIcon(".\\kahve.png").getImage());
 		difficulty=1;
-		input=new InputManager();
 		positionEnemies();
 		positionItems();
 		GameManager.Instance.changeUI("Game");
@@ -48,7 +45,6 @@ public class LevelControl {
 	public LevelControl(int currentLevel, Player playah) {
 		player=playah;
 		difficulty=currentLevel;
-		input=new InputManager();
 		positionEnemies();
 		positionItems();
 		GameManager.Instance.changeUI("Game");
@@ -161,20 +157,16 @@ public class LevelControl {
 			switch(dir)
 			{
 				case "Left":
-					System.out.println("aa");
-					player.move(player.xPos-5, player.yPos);
+					player.xVel=-2;
 					break;
 				case "Down":
-					System.out.println("ss");
-					player.move(player.xPos, player.yPos-5);
+					player.yVel=+2;
 					break;
 				case "Right":
-					System.out.println("dd");
-					player.move(player.xPos+5, player.yPos);
+					player.xVel=2;
 					break;
 				case "Up":
-					System.out.println("ww");
-					player.move(player.xPos, player.yPos+5);
+					player.yVel=-2;
 					break;
 				default:
 					break;
@@ -182,10 +174,21 @@ public class LevelControl {
 		}
 	}
 	
+	public void playerUpdate()
+	{
+		player.move();
+	}
+	
+	public void resetMoveChanges()
+	{
+		player.xVel=0;
+		player.yVel=0;
+	}
+	
 	public void Pause()
 	{
 		gamePause=true;
-		menu=pausemenu;
+		GameManager.Instance.changeUI("Pause");
 	}
 	
 

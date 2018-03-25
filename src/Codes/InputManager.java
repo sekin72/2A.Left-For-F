@@ -11,34 +11,32 @@ public class InputManager extends KeyAdapter{
 
 	@Override
     public void keyPressed(KeyEvent event) {
-		System.out.println("keypressed");
-    	char ch = event.getKeyChar();
-    	switch(ch)
+    	int key = event.getKeyCode();
+    	switch(key)
 		{
-			case 'A':
-			case 'a':
+			case KeyEvent.VK_A:
 				GameManager.Instance.levelController.move("Left");
 				break;
-			case 'S':
-			case 's':
+			case KeyEvent.VK_S:
 				GameManager.Instance.levelController.move("Down");
 				break;
-			case 'D':
-			case 'd':
+			case KeyEvent.VK_D:
 				GameManager.Instance.levelController.move("Right");
 				break;
-			case 'W':
-			case 'w':
+			case KeyEvent.VK_W:
 				GameManager.Instance.levelController.move("Up");
 				break;
-			case 'P':
-			case 'p':
+			case KeyEvent.VK_P:
 				GameManager.Instance.levelController.Pause();
 				break;
 			default:
 				break;
 		}
-    	System.out.println(event.getKeyChar());
+    }
+	
+	@Override
+    public void keyReleased(KeyEvent event) {
+		GameManager.Instance.levelController.resetMoveChanges();
     }
 	
 }
