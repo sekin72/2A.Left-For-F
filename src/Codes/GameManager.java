@@ -1,3 +1,5 @@
+import java.awt.Graphics;
+
 /**
  * @author Kaan
  *
@@ -40,7 +42,7 @@ public class GameManager {
 			} 
 			else 
 			{
-				createNewLevel();
+				//createNewLevel();
 				//Menüler iþ yapacak burda
 			}
 		}
@@ -61,12 +63,14 @@ public class GameManager {
 		case "Pause":
 			break;
 		case "MainMenu":
-			activeMenu = new MainMenu();
+			activeMenu = new GameFrame();
+			activeMenu.setVisible(true);
 			break;
 		case "Game":
 			break;
 		default:
 			break;
 		}
+		System.gc();
 	}
 }

@@ -11,6 +11,7 @@ public class InputManager extends KeyAdapter{
 
 	@Override
     public void keyPressed(KeyEvent event) {
+		System.out.println("keypressed");
     	char ch = event.getKeyChar();
     	switch(ch)
 		{

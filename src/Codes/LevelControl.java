@@ -16,7 +16,7 @@ public class LevelControl {
 	private boolean gamePause = false;
 	private Menu menu,pausemenu;
 	public static LevelControl Instance;
-	private Player player;
+	public Player player;
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     ArrayList<Item> items = new ArrayList<Item>();
 	private int difficulty;
@@ -149,16 +149,20 @@ public class LevelControl {
 		{
 			switch(dir)
 			{
-				case "A":
+				case "Left":
+					System.out.println("aa");
 					player.move(player.xPos-5, player.yPos);
 					break;
-				case "S":
+				case "Down":
+					System.out.println("ss");
 					player.move(player.xPos, player.yPos-5);
 					break;
-				case "D":
+				case "Right":
+					System.out.println("dd");
 					player.move(player.xPos+5, player.yPos);
 					break;
-				case "W":
+				case "Up":
+					System.out.println("ww");
 					player.move(player.xPos, player.yPos+5);
 					break;
 				default:
