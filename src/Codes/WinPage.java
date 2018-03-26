@@ -33,7 +33,7 @@ public class WinPage extends Menu {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ömer\\Desktop\\youwon1.gif")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(".\\youwon1.gif")); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(170, 60, 400, 203);
 
@@ -48,7 +48,7 @@ public class WinPage extends Menu {
         getContentPane().add(jButton1);
         jButton1.setBounds(260, 290, 290, 33);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ömer\\Desktop\\celebration.jpg")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(".\\celeddbration.jpg")); // NOI18N
         getContentPane().add(jLabel2);
         jLabel2.setBounds(0, 0, 740, 370);
 

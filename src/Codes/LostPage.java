@@ -55,7 +55,7 @@ public class LostPage extends Menu {
         getContentPane().add(jButton2);
         jButton2.setBounds(20, 160, 240, 27);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ömer\\Desktop\\game-over-background.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(".\\game-over-background.jpg")); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 670, 300);

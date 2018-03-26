@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author ömer
+ * @author �mer
  */
 public class MainMenu extends Menu {
 
@@ -118,7 +118,7 @@ public class MainMenu extends Menu {
         getContentPane().add(jButton6);
         jButton6.setBounds(310, 320, 180, 27);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ömer\\Documents\\NetBeansProjects\\JavaApplication2\\src\\Menu_background.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(".\\Menu_background.png")); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 810, 360);
 

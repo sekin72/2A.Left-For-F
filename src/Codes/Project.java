@@ -1,8 +1,7 @@
-import java.awt.image.BufferedImage;
-
+import java.awt.Image;
 public class Project extends Enemy {
 
-    Project(int xPos, int yPos, BufferedImage currentImage, String name){
+    Project(int xPos, int yPos, Image currentImage, String name){
         this.name = name;
         this.xPos = xPos;
         this.yPos = yPos;

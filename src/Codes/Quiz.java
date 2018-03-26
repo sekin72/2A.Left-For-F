@@ -1,8 +1,7 @@
-import java.awt.image.BufferedImage;
-
+import java.awt.Image;
 public class Quiz extends Enemy {
     int randomMultiplier;
-    Quiz(BufferedImage currentImage, String name,int escapePenalty){
+    Quiz(Image currentImage, String name,int escapePenalty){
         this.currentImage = currentImage;
         this.name = name;
         isEscapable = true;

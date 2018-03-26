@@ -1,6 +1,10 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 
 public class Player extends Character{
     ArrayList <Consumable> itemList= new ArrayList<Consumable>();
@@ -26,8 +30,8 @@ public class Player extends Character{
         healthPoints = maximumHealth;
         this.currentImage = currentImage;
         power = 10;
-        xPos=150;
-        yPos=100;
+        xPos=140;
+        yPos=100;     
     }
 
     public void move(){
@@ -93,6 +97,13 @@ public class Player extends Character{
 
     public void draw(Graphics2D g2d)
     {
+
+        BufferedImage resizedImage = new BufferedImage(150,100,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = resizedImage.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(currentImage, 0, 0, 150, 100, null);
+        g2.dispose();
+        currentImage = resizedImage;   
     	g2d.drawImage(currentImage,xPos,yPos,null);
     }
 

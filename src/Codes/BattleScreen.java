@@ -28,7 +28,7 @@ public class BattleScreen extends Menu {
      */
     ImageIcon temp;
     public BattleScreen() {
-        temp = new ImageIcon("C:\\Users\\ömer\\Documents\\NetBeansProjects\\Left 4 F\\src\\oak.png");
+        temp = new ImageIcon(".\\oak.png");
         Image temp2= resizeImage(temp,170,220);
         temp = new ImageIcon(temp2);
         initComponents();
@@ -85,7 +85,7 @@ public class BattleScreen extends Menu {
 
         jButton5.setText("Escape");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ömer\\Desktop\\player.gif")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(".\\player.pngd")); // NOI18N
 
         jTextField1.setText("Ali Hp : 100 / 100");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {

@@ -35,7 +35,7 @@ public class LevelControl {
 	}
 	
 	public LevelControl() {
-		player=new Player("Ali", new ImageIcon(".\\kahve.png").getImage());
+		player=new Player("Ali", new ImageIcon(".\\player.png").getImage());
 		difficulty=1;
 		positionEnemies();
 		positionItems();
@@ -58,11 +58,12 @@ public class LevelControl {
 		}
 		else
 		{
-			checkGameEnd();
+			System.out.println(player.xPos);
+			//checkGameEnd();
 			findEnemies();
-			Item temp = findItemCollision();
-			if(temp !=null)
-				player.addItem(temp);
+			//Item temp = findItemCollision();
+			//if(temp !=null)
+				//dddddplayer.addItem(temp);
 		}
 	}
 	
@@ -88,7 +89,7 @@ public class LevelControl {
 		{
 			enemies.add(new Project(rand.nextInt(400), 0,  null, "Project"));
 		}
-		enemies.add(new Teacher(true, rand.nextInt(400), 0, null, "Teacher"));
+		enemies.add(new Teacher(true, 150, 0, null, "Teacher"));
 	}
 	
 	private void useItem(Item item)
@@ -139,13 +140,16 @@ public class LevelControl {
 	{
 		if(enemies.size()==0)
 		{
-			System.out.println("enemy yok");
 			return false;
 		}
 		for(int i=0;i<difficulty;i++)
 		{
 			if(player.xPos==enemies.get(i).getX())
+			{
+				GameManager.Instance.changeUI("Battle");
+				System.out.println("hoca");
 				return true;
+			}
 		}
 		return false;
 	}
@@ -157,20 +161,26 @@ public class LevelControl {
 			switch(dir)
 			{
 				case "Left":
-					player.xVel=-2;
+					player.xVel=-5;
 					break;
 				case "Down":
-					player.yVel=+2;
+					player.yVel=+5;
 					break;
 				case "Right":
-					player.xVel=2;
+					player.xVel=5;
 					break;
 				case "Up":
-					player.yVel=-2;
+					player.yVel=-5;
 					break;
 				default:
 					break;
 			}
+		}
+		if(player.xPos>250)
+		{
+			GameManager.Instance.changeUI("Battle");
+			player.xPos=220;
+			player.xVel=0;
 		}
 	}
 	

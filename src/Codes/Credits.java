@@ -1,3 +1,11 @@
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import java.awt.CardLayout;
+import javax.swing.Box;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,15 +14,55 @@
 
 /**
  *
- * @author Ã¶mer
+ * @author ömer
  */
 public class Credits extends Menu {
+	private JLabel label;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JLabel label_3;
 
     /**
      * Creates new form Credits
      */
     public Credits() {
-        initComponents();
+    	getContentPane().setLayout(null);
+    	
+    	label = new JLabel();
+    	label.setText("Produced by");
+    	label.setFont(new Font("Britannic Bold", Font.BOLD, 36));
+    	label.setBounds(0, 11, 241, 36);
+    	getContentPane().add(label);
+    	
+    	label_1 = new JLabel();
+    	label_1.setText("Sekip Kaan Ekin");
+    	label_1.setFont(new Font("Britannic Bold", Font.BOLD, 24));
+    	label_1.setBounds(0, 67, 241, 24);
+    	getContentPane().add(label_1);
+    	
+    	label_2 = new JLabel();
+    	label_2.setText("Ali Can Zeybek");
+    	label_2.setFont(new Font("Britannic Bold", Font.BOLD, 24));
+    	label_2.setBounds(0, 70, 170, 92);
+    	getContentPane().add(label_2);
+    	
+    	label_3 = new JLabel();
+    	label_3.setText("Omer Faruk Geredeli");
+    	label_3.setFont(new Font("Britannic Bold", Font.BOLD, 24));
+    	label_3.setBounds(0, 107, 241, 92);
+    	getContentPane().add(label_3);
+    	
+    	JButton jButton1 = new JButton("back To Main Menu");
+    	jButton1.setFont(new java.awt.Font("Britannic Bold", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(240, 32, 32));
+        jButton1.setText("back To Main Menu");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(200, 240, 250, 27);
     }
 
     /**
@@ -25,35 +73,13 @@ public class Credits extends Menu {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 0, 0));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Britannic Bold", 1, 36)); // NOI18N
-        jLabel1.setText("Produced by");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Britannic Bold", 1, 24)); // NOI18N
-        jLabel2.setText("Sekip Kaan Ekin");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Britannic Bold", 1, 24)); // NOI18N
-        jLabel3.setText("Ali Can Zeybek");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Britannic Bold", 1, 24)); // NOI18N
-        jLabel4.setText("Omer Faruk Geredeli");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, -1, -1));
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        GameManager.Instance.changeUI("MainMenu");
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -88,11 +114,4 @@ public class Credits extends Menu {
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    // End of variables declaration//GEN-END:variables
 }

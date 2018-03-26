@@ -1,8 +1,7 @@
-import java.awt.image.BufferedImage;
-
+import java.awt.Image;
 public class Teacher extends  Enemy {
     boolean lastTeacher;
-    Teacher(boolean lastTeacher, int xPos, int yPos, BufferedImage currentImage, String name){
+    Teacher(boolean lastTeacher, int xPos, int yPos, Image currentImage, String name){
         this.name = name;
         this.lastTeacher = lastTeacher;
         this.xPos = xPos;
