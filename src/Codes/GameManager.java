@@ -1,5 +1,8 @@
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
@@ -29,7 +32,10 @@ public class GameManager {
 	}
 
 	public void createNewLevel() {
-		player = new Player("Ali", new ImageIcon(".\\Assets\\player.png").getImage());
+		try {
+		player = new Player("Ali", ImageIO.read(new File(".\\Assets\\player.png")));
+	    } catch (IOException ex) {
+	    } 
 		gameOn = true;
 		levelController = new LevelControl();
 		Update();

@@ -9,11 +9,14 @@
 
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LevelControl {
@@ -35,7 +38,13 @@ public class LevelControl {
 	}
 
 	public LevelControl() {
-		player = new Player("Ali", new ImageIcon(".\\Assets\\player.png").getImage());
+		
+
+		try {
+    		player = new Player("Ali", ImageIO.read(new File(".\\Assets\\player.png")));
+        } catch (IOException ex) {
+        } 
+		
 		difficulty = 1;
 		positionEnemies();
 		positionItems();
@@ -108,8 +117,15 @@ public class LevelControl {
 		items.add(new StatEnchancement(1, "", rand.nextInt(400), 0, null));
 		items.add(new SkillEnchancement(1, "", rand.nextInt(400), 0, null));
 		items.add(new Food(rand.nextInt(400), 0, null, 1, 1, 1, ""));
-		items.add(new EnergyDrink(rand.nextInt(400), 0, new ImageIcon(".\\Assets\\energy_drink.png").getImage(), 1, 1));
-		items.add(new Coffee(rand.nextInt(400), 0, new ImageIcon(".\\Assets\\coffee.png").getImage(), 1, 1));
+		
+		try {
+    		items.add(new EnergyDrink(rand.nextInt(400), 0, ImageIO.read(new File(".\\Assets\\energy_drink.png")), 1, 1));
+    		items.get(3).resize(items.get(3).currentImage, 30, 50);
+    		items.add(new Coffee(rand.nextInt(400), 0, ImageIO.read(new File(".\\Assets\\coffee.png")), 1, 1));
+    		items.get(4).resize(items.get(4).currentImage, 30, 50);
+        } catch (IOException ex) {
+        } 
+		
 	}
 
 	private Item findItemCollision() {

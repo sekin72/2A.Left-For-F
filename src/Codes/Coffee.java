@@ -1,8 +1,9 @@
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public class Coffee extends Consumable {
 
-    Coffee(int xPos, int yPos, Image currentImage, int numberOfItems, int increaseAmount){
+    Coffee(int xPos, int yPos, BufferedImage currentImage, int numberOfItems, int increaseAmount){
         this.xPos = xPos;
         this.yPos = yPos;
         this.increaseAmount = increaseAmount;

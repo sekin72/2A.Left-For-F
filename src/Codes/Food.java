@@ -1,6 +1,7 @@
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 public class Food extends Consumable {
-    Food(int xPos, int yPos, Image currentImage, int numberOfItems, int increaseAmount,int maximumHealthChangeAmount,String name){
+    Food(int xPos, int yPos, BufferedImage currentImage, int numberOfItems, int increaseAmount,int maximumHealthChangeAmount,String name){
         this.xPos = xPos;
         this.yPos = yPos;
         this.increaseAmount = increaseAmount;

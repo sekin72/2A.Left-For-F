@@ -2,8 +2,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Player extends Character{
@@ -23,12 +26,20 @@ public class Player extends Character{
         UP,
         DOWN
     }
-    
-    Player(String name, Image currentImage){
+
+    BufferedImage originalImage = null;
+    Player(String name, BufferedImage currentImage){
         this.name = name;
         maximumHealth = 100;
         healthPoints = maximumHealth;
         this.currentImage = currentImage;
+        
+    	try {
+    		originalImage = ImageIO.read(new File(".\\Assets\\player.png"));
+        	resize(originalImage, 300,150);
+        } catch (IOException ex) {
+        } 
+    	
         power = 10;
         xPos=140;
         yPos=100;     
@@ -97,12 +108,6 @@ public class Player extends Character{
 
     public void draw(Graphics2D g2d)
     {
-        BufferedImage resizedImage = new BufferedImage(150,100,BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = resizedImage.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(currentImage, 0, 0, 150, 100, null);
-        g2.dispose();
-        currentImage = resizedImage;   
     	g2d.drawImage(currentImage,xPos,yPos,null);
     }
 

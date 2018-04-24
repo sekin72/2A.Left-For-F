@@ -39,16 +39,6 @@ public class GameFrame extends Menu implements ActionListener{
     	
 
     }
-    
-    private Image resizeImage(ImageIcon img, int width, int height)
-    {
-    	BufferedImage resizedImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = resizedImage.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(img.getImage(), 0, 0, width, height, null);
-        g2.dispose();
-        return resizedImage;
-    }
 
     private BufferedImage flipImageHor(BufferedImage img)
     {

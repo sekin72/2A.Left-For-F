@@ -1,7 +1,8 @@
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 public class EnergyDrink extends Consumable{
 	
-    EnergyDrink(int xPos, int yPos, Image currentImage, int numberOfItems, int increaseAmount){
+    EnergyDrink(int xPos, int yPos, BufferedImage currentImage, int numberOfItems, int increaseAmount){
         this.xPos = xPos;
         this.yPos = yPos;
         this.increaseAmount = increaseAmount;
