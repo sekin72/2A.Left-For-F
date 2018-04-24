@@ -1,5 +1,6 @@
 import java.awt.Image;
 public class EnergyDrink extends Consumable{
+	
     EnergyDrink(int xPos, int yPos, Image currentImage, int numberOfItems, int increaseAmount){
         this.xPos = xPos;
         this.yPos = yPos;

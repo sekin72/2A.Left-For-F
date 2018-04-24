@@ -97,7 +97,6 @@ public class Player extends Character{
 
     public void draw(Graphics2D g2d)
     {
-
         BufferedImage resizedImage = new BufferedImage(150,100,BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = resizedImage.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);

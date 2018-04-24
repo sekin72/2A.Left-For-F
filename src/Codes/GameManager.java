@@ -29,7 +29,7 @@ public class GameManager {
 	}
 
 	public void createNewLevel() {
-		player = new Player("Ali", new ImageIcon(".\\player.png").getImage());
+		player = new Player("Ali", new ImageIcon(".\\Assets\\player.png").getImage());
 		gameOn = true;
 		levelController = new LevelControl();
 		Update();

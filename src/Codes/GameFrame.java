@@ -24,15 +24,20 @@ public class GameFrame extends Menu implements ActionListener{
     	addKeyListener(new InputManager());
     	timer = new Timer(50,this);
     	timer.start();
-    	bgIcon = new ImageIcon(".\\map.png");
+		bgIcon = new ImageIcon(".\\Assets\\map.png");
     }
 
     public void paint(Graphics g)
     {
     	super.paint(g);
-    	g.drawImage(bgIcon.getImage(), 0, 0, null);
+
+    	g.drawImage(bgIcon.getImage(), GameManager.Instance.levelController.moveDisX, GameManager.Instance.levelController.moveDisY, null);
     	Graphics2D g2d = (Graphics2D) g;
+    	GameManager.Instance.levelController.items.get(4).draw(g2d);
+    	GameManager.Instance.levelController.items.get(3).draw(g2d);
     	player.draw(g2d);
+    	
+
     }
     
     private Image resizeImage(ImageIcon img, int width, int height)

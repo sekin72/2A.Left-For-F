@@ -65,7 +65,7 @@ public class Tutorial extends Menu {
         getContentPane().add(jButton1);
         jButton1.setBounds(200, 240, 250, 27);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu_background.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource(".\\Assets\\Menu_background.png"))); // NOI18N
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(0, 0, 670, 300);
