@@ -1,3 +1,4 @@
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 public class Enemy extends Character {
@@ -30,6 +31,9 @@ public class Enemy extends Character {
           attacks.add(x);
      }
 
-
+     public void draw(Graphics2D g2d)
+     {
+     	g2d.drawImage(currentImage,GameManager.Instance.levelController.moveDisX+xPos,GameManager.Instance.levelController.moveDisY+yPos,null);
+     }
 
 }

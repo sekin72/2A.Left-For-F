@@ -1,3 +1,4 @@
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 public class Character extends GameObject {
@@ -23,4 +24,7 @@ public class Character extends GameObject {
     void getAttacked(int damage){
         this.healthPoints = this.healthPoints - damage;
     }
+
+
+    
 }

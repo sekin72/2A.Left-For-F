@@ -109,6 +109,6 @@ public class Player extends Character{
     public void draw(Graphics2D g2d)
     {
     	g2d.drawImage(currentImage,xPos,yPos,null);
+    	
     }
-
 }

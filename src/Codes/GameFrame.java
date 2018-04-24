@@ -33,8 +33,10 @@ public class GameFrame extends Menu implements ActionListener{
 
     	g.drawImage(bgIcon.getImage(), GameManager.Instance.levelController.moveDisX, GameManager.Instance.levelController.moveDisY, null);
     	Graphics2D g2d = (Graphics2D) g;
-    	GameManager.Instance.levelController.items.get(4).draw(g2d);
+    	GameManager.Instance.levelController.items.get(2).draw(g2d);
     	GameManager.Instance.levelController.items.get(3).draw(g2d);
+    	GameManager.Instance.levelController.items.get(4).draw(g2d);
+    	GameManager.Instance.levelController.enemies.get(0).draw(g2d);
     	player.draw(g2d);
     	
 

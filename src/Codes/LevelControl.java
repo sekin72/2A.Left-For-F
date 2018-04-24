@@ -79,6 +79,14 @@ public class LevelControl {
 	}
 
 	private void positionEnemies() {
+		
+		try {
+			enemies.add(new Teacher(true, rand.nextInt(400), 0, ImageIO.read(new File(".\\Assets\\prof.png")), "Teacher"));
+        } catch (IOException ex) {
+        } 
+
+		enemies.get(0).resize(enemies.get(0).currentImage, 30, 50);
+		
 		for (int i = 0; i < difficulty; i++) {
 			enemies.add(new Quiz(null, "quiz", 10));
 			enemies.get(i).setX(rand.nextInt(400));
@@ -89,7 +97,7 @@ public class LevelControl {
 		for (int i = 0; i < difficulty; i++) {
 			enemies.add(new Project(rand.nextInt(400), 0, null, "Project"));
 		}
-		enemies.add(new Teacher(true, rand.nextInt(400), 0, null, "Teacher"));
+		
 	}
 
 	private void useItem(Item item) {
@@ -115,16 +123,17 @@ public class LevelControl {
 
 	private void positionItems() {
 		items.add(new StatEnchancement(1, "", rand.nextInt(400), 0, null));
-		items.add(new SkillEnchancement(1, "", rand.nextInt(400), 0, null));
 		items.add(new Food(rand.nextInt(400), 0, null, 1, 1, 1, ""));
 		
 		try {
+			items.add(new SkillEnchancement(1, "", rand.nextInt(400), 0, ImageIO.read(new File(".\\Assets\\cpp.png"))));
     		items.add(new EnergyDrink(rand.nextInt(400), 0, ImageIO.read(new File(".\\Assets\\energy_drink.png")), 1, 1));
-    		items.get(3).resize(items.get(3).currentImage, 30, 50);
     		items.add(new Coffee(rand.nextInt(400), 0, ImageIO.read(new File(".\\Assets\\coffee.png")), 1, 1));
-    		items.get(4).resize(items.get(4).currentImage, 30, 50);
         } catch (IOException ex) {
         } 
+		items.get(2).resize(items.get(2).currentImage, 30, 50);
+		items.get(3).resize(items.get(3).currentImage, 30, 50);
+		items.get(4).resize(items.get(4).currentImage, 30, 50);
 		
 	}
 
