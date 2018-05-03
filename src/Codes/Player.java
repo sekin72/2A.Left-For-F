@@ -19,7 +19,6 @@ public class Player extends Character{
     boolean isMale;
     int power;
     
-    public int xVel=0,yVel=0;
     enum directions{
         RIGHT,
         LEFT,
@@ -36,7 +35,7 @@ public class Player extends Character{
         
     	try {
     		originalImage = ImageIO.read(new File(".\\Assets\\player.png"));
-        	resize(originalImage, 300,150);
+        	resize(originalImage, 100,100);
         } catch (IOException ex) {
         } 
     	
@@ -45,14 +44,33 @@ public class Player extends Character{
         yPos=100;     
     }
 
-    public void move(){
+    public void move(int xVel, int yVel){
         xPos += xVel;
         yPos += yVel;
     }
 
+    public void useItem(String name) {
+
+		if (name == "coffee") {
+			useCoffee();
+		}
+		if (name == "food") {
+			useFood();
+		}
+		if (name == "energyDrink") {
+			useEnergyDrink();
+		}/*
+		if (name == "skillEnhancement") {
+			player.equipEnchancement((Enchancement) item);
+		}
+		if (name == "statEnhancement") {
+			player.equipEnchancement((Enchancement) item);
+		}*/
+	}
+    
     public boolean useEnergyDrink(){
         for(int i = 0; i < itemList.size(); i++){
-            if (itemList.get(i).isEnergyDrink()){
+            if (itemList.get(i).name =="energyDrink"){
                 healthPoints = healthPoints + itemList.get(i).increaseAmount;
                 itemList.remove(i);
                 return true;
@@ -63,7 +81,7 @@ public class Player extends Character{
 
     public boolean useCoffee(){
         for(int i = 0; i < itemList.size(); i++){
-            if (itemList.get(i).isCoffee()){
+            if (itemList.get(i).name == "coffee"){
                 healthPoints = healthPoints + itemList.get(i).increaseAmount;
                 itemList.remove(i);
                 return true;
@@ -72,16 +90,13 @@ public class Player extends Character{
         return false;
     }
 
-    public boolean useFood(String foodName){
+    public boolean useFood(){
         for(int i = 0; i < itemList.size(); i++){
-            if (itemList.get(i).isFood()){
-                if (itemList.get(i).name == foodName){
+            if (itemList.get(i).name == "food"){
                     healthPoints = healthPoints + itemList.get(i).increaseAmount;
                     maximumHealth = maximumHealth + itemList.get(i).maximumHealthChangeAmount;
                     itemList.remove(i);
                     return true;
-                }
-
             }
         }
         return false;
@@ -108,7 +123,8 @@ public class Player extends Character{
 
     public void draw(Graphics2D g2d)
     {
-    	g2d.drawImage(currentImage,xPos,yPos,null);
+		//System.out.println(xPos + " "+ yPos);
+    	g2d.drawImage(currentImage,140,100,null);
     	
     }
 }

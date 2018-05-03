@@ -8,7 +8,7 @@ public class EnergyDrink extends Consumable{
         this.increaseAmount = increaseAmount;
         this.numberOfitems = numberOfItems;
         this.currentImage = currentImage;
-
+        this.name = "energyDrink";
     }
 
     public void update(boolean isTaken){

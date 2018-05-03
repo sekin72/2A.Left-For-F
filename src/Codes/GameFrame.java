@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -9,22 +10,27 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.Timer;
 
 public class GameFrame extends Menu implements ActionListener{
-
 
 	public Player player;
 	Timer timer;
 	ImageIcon bgIcon;
 	
     public GameFrame(Player playah) {
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     	setFocusable(true);
     	player =playah;
     	addKeyListener(new InputManager());
     	timer = new Timer(50,this);
     	timer.start();
 		bgIcon = new ImageIcon(".\\Assets\\map.png");
+		JLabel health = new JLabel();
+		health.setText(GameManager.Instance.levelController.player.healthPoints + "/" + GameManager.Instance.levelController.player.maximumHealth); 
+		add(health);
     }
 
     public void paint(Graphics g)
@@ -33,9 +39,13 @@ public class GameFrame extends Menu implements ActionListener{
 
     	g.drawImage(bgIcon.getImage(), GameManager.Instance.levelController.moveDisX, GameManager.Instance.levelController.moveDisY, null);
     	Graphics2D g2d = (Graphics2D) g;
-    	GameManager.Instance.levelController.items.get(2).draw(g2d);
-    	GameManager.Instance.levelController.items.get(3).draw(g2d);
-    	GameManager.Instance.levelController.items.get(4).draw(g2d);
+    	for(int i=0;i<GameManager.Instance.levelController.items.size();i++)
+    	{
+    		if(GameManager.Instance.levelController.items.get(i)!=null)
+    		{
+    			GameManager.Instance.levelController.items.get(i).draw(g2d);
+    		}
+    	}
     	GameManager.Instance.levelController.enemies.get(0).draw(g2d);
     	player.draw(g2d);
     	
@@ -69,7 +79,6 @@ public class GameFrame extends Menu implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		GameManager.Instance.Update();
-		GameManager.Instance.levelController.playerUpdate();
 		player=	GameManager.Instance.levelController.player;
 		repaint();
 	}

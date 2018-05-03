@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 public class Item  extends GameObject{
     int numberOfitems;
     int randomMultiplier;
+    String name;
 
     public void draw(Graphics2D g2d)
     {

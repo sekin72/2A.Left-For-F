@@ -9,6 +9,7 @@ public class Teacher extends  Enemy {
         this.yPos = yPos;
         this.currentImage = currentImage;
         isEscapable = false;
+        this.name ="prof";
 
     }
 

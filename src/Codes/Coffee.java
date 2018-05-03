@@ -9,7 +9,7 @@ public class Coffee extends Consumable {
         this.increaseAmount = increaseAmount;
         this.numberOfitems = numberOfItems;
         this.currentImage = currentImage;
-
+        this.name = "coffee";
     }
     @Override
     public boolean isEnergyDrink() {

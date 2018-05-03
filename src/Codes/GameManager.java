@@ -76,6 +76,10 @@ public class GameManager {
 			case "CharacterSelection":
 				break;
 			case "ItemMenu":
+				activeMenu.setVisible(false);
+				activeMenu = new ItemMenu();
+	            activeMenu.setSize(810,400);
+	            activeMenu.setVisible(true);
 				break;
 			case "Pause":
 				break;

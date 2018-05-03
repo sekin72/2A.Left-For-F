@@ -9,5 +9,6 @@ public class SkillEnchancement extends Enchancement {
         this.xPos = xPos;
         this.yPos = yPos;
         this.currentImage = currentImage;
+        this.name="skillEnhancement";
     }
 }

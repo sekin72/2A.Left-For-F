@@ -4,7 +4,6 @@ public abstract class Consumable extends Item {
     public abstract boolean isEnergyDrink();
     public abstract boolean isCoffee();
     public abstract boolean isFood();
-    String name;
 
 
 
