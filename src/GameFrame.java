@@ -29,7 +29,8 @@ public class GameFrame extends Menu implements ActionListener{
     	timer.start();
 		bgIcon = new ImageIcon(".\\Assets\\map.png");
 		JLabel health = new JLabel();
-		health.setText(GameManager.Instance.levelController.player.healthPoints + "/" + GameManager.Instance.levelController.player.maximumHealth); 
+		
+		health.setText(player.healthPoints + "/" + player.maximumHealth); 
 		add(health);
     }
 

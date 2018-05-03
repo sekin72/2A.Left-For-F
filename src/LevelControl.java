@@ -33,13 +33,13 @@ public class LevelControl {
 	{
 		try {
     		player = new Player("Ali", ImageIO.read(new File(".\\Assets\\player.png")));
+    		GameManager.Instance.changeUI("Game");
         } catch (IOException ex) {
         } 
 		
 		difficulty = 1;
 		positionEnemies();
 		positionItems();
-		GameManager.Instance.changeUI("Game");
 	}
 	
 	public LevelControl(LevelControl level) 
