@@ -1,4 +1,7 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,13 +15,18 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.Border;
 
 public class GameFrame extends Menu implements ActionListener{
 
 	public Player player;
 	Timer timer;
 	ImageIcon bgIcon;
+	String healthBar, timerBar;
+	Font font;
+	static long startTime=0;;
 	
     public GameFrame(Player playah) {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -28,16 +36,23 @@ public class GameFrame extends Menu implements ActionListener{
     	timer = new Timer(50,this);
     	timer.start();
 		bgIcon = new ImageIcon(".\\Assets\\map.png");
-		JLabel health = new JLabel();
-		
-		health.setText(player.healthPoints + "/" + player.maximumHealth); 
-		add(health);
+		healthBar = player.healthPoints + "/" + player.maximumHealth;
+		font= new Font("Calibri", Font.PLAIN,36);
+		getContentPane().setBackground(Color.black);
     }
 
     public void paint(Graphics g)
     {
+    	if(GameManager.Instance.gameOn)
+    		startTime++;
+    	if(startTime/18 > 50)
+    	{
+    		startTime=0;
+    		GameManager.Instance.levelController.timeRanOut=true;
+    	}
+    	
+		healthBar = player.healthPoints + "/" + player.maximumHealth;
     	super.paint(g);
-
     	g.drawImage(bgIcon.getImage(), GameManager.Instance.levelController.moveDisX, GameManager.Instance.levelController.moveDisY, null);
     	Graphics2D g2d = (Graphics2D) g;
     	for(int i=0;i<GameManager.Instance.levelController.items.size();i++)
@@ -47,9 +62,14 @@ public class GameFrame extends Menu implements ActionListener{
     			GameManager.Instance.levelController.items.get(i).draw(g2d);
     		}
     	}
-    	GameManager.Instance.levelController.enemies.get(0).draw(g2d);
     	player.draw(g2d);
     	
+		timerBar=String.valueOf(startTime/18);
+    	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    	g2d.setColor(Color.red);
+    	g2d.setFont(font);
+    	g2d.drawString(timerBar, 850, 90);
+    	g2d.drawString(healthBar, 20, 90);
 
     }
 

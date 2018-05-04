@@ -57,7 +57,13 @@ public class ItemMenu extends Menu
 		
 		backButton.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e) {
-			  
+			  if(GameManager.Instance.levelController.enemy==null)
+			  {
+				  GameManager.Instance.gameOn=true;
+				  GameManager.Instance.changeUI("Game");
+			  }
+			  else
+				  GameManager.Instance.changeUI("Battle");
 		  }
 		});
 		
@@ -67,7 +73,6 @@ public class ItemMenu extends Menu
 				  {
 						GameManager.Instance.levelController.player.useItem((String) list.getSelectedValue());
 						model.remove(list.getSelectedIndex());
-						System.out.println("seçti");
 				  }
 				  
 			  }

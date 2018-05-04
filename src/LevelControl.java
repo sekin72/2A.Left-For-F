@@ -21,14 +21,15 @@ import java.util.ArrayList;
 
 public class LevelControl {
 
-	public boolean gamePause = false;
+	public boolean gamePause = false, timeRanOut=false;
 	public Player player;
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	ArrayList<Item> items = new ArrayList<Item>();
 	private int difficulty;
 	private Random rand = new Random();
-	public int moveDisX=0,moveDisY=0;
-
+	public int moveDisX=0,moveDisY=0, enemyLoc;
+	public Enemy enemy=null;
+	
 	public LevelControl() 
 	{
 		try {
@@ -68,31 +69,47 @@ public class LevelControl {
 			checkGameEnd();
 			findEnemies();
 			findItemCollision();
+			if(player.healthPoints>player.maximumHealth)
+				player.healthPoints=player.maximumHealth;
 		}
 	}
 
 	public Boolean checkGameEnd() 
 	{
-		if (player.healthPoints == 0 || player.xPos == 800)
+		if (player.healthPoints == 0 || timeRanOut)
+		{
+			GameManager.Instance.gameOn=false;
+			GameManager.Instance.changeUI("Lost");
+			timeRanOut=false;
 			return true;
+		}
 		return false;
 	}
 
 	private void positionEnemies() 
-	{
-		enemies.add(new Teacher(true, rand.nextInt(800), 0, null/*ImageIO.read(new File(".\\Assets\\prof.png"))*/, "Teacher"));
+	{/*
+		for (int i = 0; i < difficulty+1; i++) {
+			enemies.add(new Quiz(null, "Quiz", 10));
+			enemies.get(i).xPos = (rand.nextInt(200)+300);
+			enemies.get(i).yPos = (rand.nextInt(640));
+			enemies.get(i).power =3*difficulty;
+		}
+		for (int i = 0; i < difficulty; i++) {
+			enemies.add(new Midterm(rand.nextInt(200)+500, rand.nextInt(640), null, "Midterm", 0, 20));
+			enemies.get(i).power =5*difficulty;
+		}
+		for (int i = 0; i < difficulty-1; i++) {
+			enemies.add(new Project(rand.nextInt(200)+700, rand.nextInt(640), null, "Project"));
+			enemies.get(i).power =7*difficulty;
+		}*/
+		enemies.add(new Teacher(true, rand.nextInt(200)+900, rand.nextInt(640), null, "Proffessor"));
+		enemies.get(enemies.size()-1).power =10*difficulty;
 		
-		for (int i = 0; i < difficulty; i++) {
-			enemies.add(new Quiz(null, "quiz", 10));
-			enemies.get(i).xPos = (rand.nextInt(800));
+		for (int i = 0; i < enemies.size(); i++) 
+		{
+			enemies.get(i).maximumHealth=100*difficulty;
+			enemies.get(i).healthPoints=100*difficulty;
 		}
-		for (int i = 0; i < difficulty; i++) {
-			enemies.add(new Midterm(rand.nextInt(800), 0, null, "Midterm", 0, 20));
-		}
-		for (int i = 0; i < difficulty; i++) {
-			enemies.add(new Project(rand.nextInt(800), 0, null, "Project"));
-		}
-		
 	}
 
 	
@@ -102,21 +119,36 @@ public class LevelControl {
 		try {
     		items.add(new EnergyDrink(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\energy_drink.png")), 1, 1));
     		items.add(new Coffee(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\coffee.png")), 1, 1));
-    		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\hamburger.png")), 1, 1, 1));
-    		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\fries.png")), 1, 1, 1));
-    		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\pizza.png")), 1, 1, 1));
-    		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\donut.png")), 1, 1, 1));
-    		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\hotdog.png")), 1, 1, 1));
-    		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\egg.png")), 1, 1, 1));
-    		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\cpp.png"))));
-    		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\java.png"))));
-    		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\c#.png"))));
-    		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\css.png"))));
-    		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\php.png"))));
-    		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\python.png"))));
-			items.add(new SkillEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\hashTable.png"))));
-			items.add(new SkillEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\stackOverflow.png"))));
-			items.add(new SkillEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\github.png"))));
+    		items.add(new EnergyDrink(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\energy_drink.png")), 1, 1));
+    		items.add(new Coffee(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\coffee.png")), 1, 1));
+    		switch(difficulty)
+    		{
+	    		case 1:
+	        		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\python.png"))));
+	        		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\hamburger.png")), 1, 1, 1));
+	        		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\fries.png")), 1, 1, 1));
+	    			break;
+	    		case 2:
+	        		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\java.png"))));
+	    			items.add(new SkillEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\hashTable.png"))));
+	        		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\hamburger.png")), 1, 1, 1));
+	        		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\fries.png")), 1, 1, 1));
+	    			break;
+	    		case 3:
+	        		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\c#.png"))));
+	    			items.add(new SkillEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\stackOverflow.png"))));
+	        		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\pizza.png")), 1, 1, 1));
+	        		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\donut.png")), 1, 1, 1));
+	    			break;
+	    		case 4:
+	        		items.add(new StatEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\cpp.png"))));
+	    			items.add(new SkillEnchancement(1, "", rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\github.png"))));
+	        		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\hotdog.png")), 1, 1, 1));
+	        		items.add(new Food(rand.nextInt(800), rand.nextInt(640), ImageIO.read(new File(".\\Assets\\egg.png")), 1, 1, 1));
+	    			break;
+    			default:
+    				break;
+    		}
         } catch (IOException ex) {
         } 
 		
@@ -127,7 +159,7 @@ public class LevelControl {
 
 	private void findItemCollision() {
 		for (int i = 0; i < items.size(); i++) {
-			if (items.get(i).xPos+15 >= player.xPos &&  items.get(i).xPos+15 <= player.xPos+100d &&  items.get(i).yPos+25 >= player.yPos &&  items.get(i).yPos+25 <= player.xPos+100)//+50 && player.yPos >= items.get(i).yPos)
+			if (items.get(i).xPos+15 >= player.xPos &&  items.get(i).xPos+15 <= player.xPos+100 &&  items.get(i).yPos+25 >= player.yPos &&  items.get(i).yPos+25 <= player.yPos+100)//+50 && player.yPos >= items.get(i).yPos)
 			{
 				if(items.get(i).name == "food" || items.get(i).name == "coffee" || items.get(i).name == "energyDrink")
 				{
@@ -148,8 +180,10 @@ public class LevelControl {
 			return;
 		}
 		for (int i = 0; i < difficulty; i++) {
-			if (enemies.get(i).xPos+15 >= player.xPos &&  enemies.get(i).xPos+15 <= player.xPos+100d &&  enemies.get(i).yPos+25 >= player.yPos &&  items.get(i).yPos+25 <= player.xPos+100)//+50 && player.yPos >= items.get(i).yPos)
+			if (enemies.get(i).xPos+15 >= player.xPos &&  enemies.get(i).xPos+15 <= player.xPos+100)
 			{
+				enemy = enemies.get(i);
+				enemyLoc=i;
 				GameManager.Instance.gameOn=false;
 				GameManager.Instance.changeUI("Battle");
 			}
@@ -160,20 +194,20 @@ public class LevelControl {
 		if (GameManager.Instance.gameOn && !gamePause) {
 			switch (dir) {
 			case "Left":
-				moveDisX += 5;
-				playerUpdate(-5,0);
+				moveDisX += player.moveSpeed;
+				playerUpdate(-player.moveSpeed,0);
 				break;
 			case "Down":
-				moveDisY -= 5;
-				playerUpdate(0,5);
+				moveDisY -= player.moveSpeed;
+				playerUpdate(0,player.moveSpeed);
 				break;
 			case "Right":
-				moveDisX -= 5;
-				playerUpdate(5,0);
+				moveDisX -= player.moveSpeed;
+				playerUpdate(player.moveSpeed,0);
 				break;
 			case "Up":
-				moveDisY += 5;
-				playerUpdate(0,-5);
+				moveDisY += player.moveSpeed;
+				playerUpdate(0,-player.moveSpeed);
 				break;
 			default:
 				break;

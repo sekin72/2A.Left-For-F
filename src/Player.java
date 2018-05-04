@@ -15,9 +15,7 @@ public class Player extends Character{
     ArrayList <Enchancement> inUseItems= new ArrayList<Enchancement>();
     ArrayList <Enchancement> enchancements = new ArrayList<Enchancement>();
 
-    int maximumHealth;
     boolean isMale;
-    int power;
     
     enum directions{
         RIGHT,
@@ -40,8 +38,9 @@ public class Player extends Character{
         } 
     	
         power = 10;
-        xPos=140;
-        yPos=100;     
+        xPos=20;
+        yPos=100;  
+        moveSpeed=5;
     }
 
     public void move(int xVel, int yVel){
@@ -50,7 +49,6 @@ public class Player extends Character{
     }
 
     public void useItem(String name) {
-
 		if (name == "coffee") {
 			useCoffee();
 		}
@@ -59,19 +57,19 @@ public class Player extends Character{
 		}
 		if (name == "energyDrink") {
 			useEnergyDrink();
-		}/*
+		}
 		if (name == "skillEnhancement") {
-			player.equipEnchancement((Enchancement) item);
+			power+=10;
 		}
 		if (name == "statEnhancement") {
-			player.equipEnchancement((Enchancement) item);
-		}*/
+			moveSpeed+=5;
+		}
 	}
     
     public boolean useEnergyDrink(){
         for(int i = 0; i < itemList.size(); i++){
             if (itemList.get(i).name =="energyDrink"){
-                healthPoints = healthPoints + itemList.get(i).increaseAmount;
+                healthPoints = healthPoints + 10;
                 itemList.remove(i);
                 return true;
             }
@@ -82,7 +80,7 @@ public class Player extends Character{
     public boolean useCoffee(){
         for(int i = 0; i < itemList.size(); i++){
             if (itemList.get(i).name == "coffee"){
-                healthPoints = healthPoints + itemList.get(i).increaseAmount;
+                healthPoints = healthPoints + 5;
                 itemList.remove(i);
                 return true;
             }
@@ -124,7 +122,7 @@ public class Player extends Character{
     public void draw(Graphics2D g2d)
     {
 		//System.out.println(xPos + " "+ yPos);
-    	g2d.drawImage(currentImage,140,100,null);
+    	g2d.drawImage(currentImage,20,100,null);
     	
     }
 }

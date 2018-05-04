@@ -1,4 +1,197 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.Timer;
+import javax.swing.border.Border;
+
+public class BattleScreen extends Menu implements ActionListener{
+
+	public Player player;
+	public Enemy enemy;
+	Timer timer;
+
+	ImageIcon playerImage;
+	ImageIcon enemyImage;
+
+	String healthBarEnemy, healthBarPlayer;
+	Font font;
+
+    public BattleScreen() {
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+    	timer = new Timer(50,this);
+    	timer.start();
+		
+		JButton attackkButton = new JButton("Attack");
+		JButton itemsButton = new JButton("Items");
+		JButton runButton = new JButton("Run");
+		
+		attackkButton.addActionListener(new ActionListener() {
+			  public void actionPerformed(ActionEvent e) {
+				  enemy.healthPoints-=player.power;
+				  player.healthPoints-=enemy.power;
+			  }
+			});
+			
+		itemsButton.addActionListener(new ActionListener() {
+			  public void actionPerformed(ActionEvent e) {
+				  GameManager.Instance.changeUI("ItemMenu");
+				  player.healthPoints-=enemy.power;
+			  }
+			});
+		
+		runButton.addActionListener(new ActionListener() {
+			  public void actionPerformed(ActionEvent e) {
+				  if(enemy.isEscapable)
+				  {
+					  player.healthPoints-=enemy.escapePenalty;
+					  GameManager.Instance.levelController.enemies.remove(GameManager.Instance.levelController.enemyLoc);
+					  GameManager.Instance.levelController.enemy=null;
+					  GameManager.Instance.gameOn=true;
+					  GameManager.Instance.changeUI("Game");
+				  }
+				  player.healthPoints-=enemy.power;
+			  }
+			});
+			
+		JPanel c= new JPanel();
+		c.add(attackkButton, BorderLayout.WEST);
+		c.add(itemsButton, BorderLayout.SOUTH);
+		c.add(runButton, BorderLayout.EAST);
+		add(c, BorderLayout.SOUTH);
+		
+    	player=GameManager.Instance.levelController.player;
+    	enemy=GameManager.Instance.levelController.enemy;
+    	playerImage = new ImageIcon(".\\Assets\\player.png");
+    	switch(enemy.name)
+    	{
+	    	case "Proffessor":
+				  System.out.println("geldim");
+	        	enemyImage = new ImageIcon(".\\Assets\\prof.png");
+	            break;
+	    	case "Quiz":
+	        	enemyImage = new ImageIcon(".\\Assets\\quiz.png");
+	            break;
+	    	case "Midterm":
+	        	enemyImage = new ImageIcon(".\\Assets\\mid.jpg");
+	            break;
+	    	case "Project":
+	        	enemyImage = new ImageIcon(".\\Assets\\proj.png");
+	            break;
+	    	default:
+	    		break;		
+    	}
+    	healthBarPlayer = player.healthPoints + "/" + player.maximumHealth;
+    	healthBarEnemy = enemy.healthPoints + "/ 100";
+    	font= new Font("Calibri", Font.PLAIN,36);
+    	setFocusable(true);
+    	addKeyListener(new InputManager());
+    }
+
+    public void checkBattleEnd()
+    {
+    	if(enemy.healthPoints==0)
+    	{
+    		if(enemy.name=="Proffessor")
+    		{
+    			GameManager.Instance.changeUI("Won");
+    		}
+    		else
+    		{
+				GameManager.Instance.levelController.enemies.remove(GameManager.Instance.levelController.enemyLoc);
+				GameManager.Instance.levelController.enemy=null;
+				GameManager.Instance.gameOn=true;
+				GameManager.Instance.changeUI("Game");
+    		}
+    	}
+    	else if(player.healthPoints==0)
+    	{
+			GameManager.Instance.changeUI("Lost");
+    	}
+    }
+    public void paint(Graphics g)
+    {
+    	checkBattleEnd();
+    	healthBarPlayer = player.healthPoints + "/" + player.maximumHealth;
+    	healthBarEnemy = enemy.healthPoints + "/" + enemy.maximumHealth;
+    	super.paint(g);
+    	g.drawImage(playerImage.getImage(), 25,300, null);
+		g.drawImage(enemyImage.getImage(), 670,50, null);
+    	Graphics2D g2d = (Graphics2D) g;
+    	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    	g2d.setColor(Color.red);
+    	g2d.setFont(font);
+    	g2d.drawString(healthBarPlayer, 25, 330);
+    	g2d.drawString(healthBarEnemy, 650, 220);
+    	g2d.drawString("Player", 25, 280);
+    	g2d.drawString(enemy.name, 650, 170);
+    }
+    
+    private BufferedImage resizeImage(ImageIcon img, int width, int height)
+    {
+    	BufferedImage resizedImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = resizedImage.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(img.getImage(), 0, 0, width, height, null);
+        g2.dispose();
+        return resizedImage;
+    }
+
+    private BufferedImage flipImageHor(BufferedImage img)
+    {
+    	// Flip the image horizontally
+    	AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+    	tx.translate(-img.getWidth(null), 0);
+    	AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+    	img = op.filter(img, null);
+    	return img;
+    }
+
+    private BufferedImage flipImageVer(BufferedImage img)
+    {
+    	// Flip the image vertically
+    	AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
+    	tx.translate(0, -img.getHeight(null));
+    	AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+    	img = op.filter(img, null);
+    	return img;
+    }
+    
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		GameManager.Instance.Update();
+		player=	GameManager.Instance.levelController.player;
+		repaint();
+	}
+}
+	
+
+/*
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -11,34 +204,32 @@ import javax.swing.ImageIcon;
 
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author ömer
- */
 public class BattleScreen extends Menu {
 
-    /**
-     * Creates new form BattleScreen
-     */
     ImageIcon temp;
     public BattleScreen() {
-        temp = new ImageIcon(".\\Assets\\oak.png");
+    	switch(GameManager.Instance.levelController.enemyName)
+    	{
+	    	case "prof":
+	            temp = new ImageIcon(".\\Assets\\prof.png");
+	            break;
+	    	case "quiz":
+	            temp = new ImageIcon(".\\Assets\\quiz.png");
+	            break;
+	    	case "mid":
+	            temp = new ImageIcon(".\\Assets\\mid.png");
+	            break;
+	    	case "proj":
+	            temp = new ImageIcon(".\\Assets\\proj.png");
+	            break;
+	    	default:
+	    		break;		
+    	}
         Image temp2= resizeImage(temp,170,220);
         temp = new ImageIcon(temp2);
         initComponents();
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -200,15 +391,7 @@ public class BattleScreen extends Menu {
         return resizedImage;
     }
      
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -227,7 +410,6 @@ public class BattleScreen extends Menu {
         }
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BattleScreen().setVisible(true);
@@ -247,3 +429,4 @@ public class BattleScreen extends Menu {
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
+*/

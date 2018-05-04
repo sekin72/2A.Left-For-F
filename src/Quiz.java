@@ -7,7 +7,6 @@ public class Quiz extends Enemy {
         this.name = name;
         isEscapable = true;
         this.escapePenalty = escapePenalty;
-
     }
 
 

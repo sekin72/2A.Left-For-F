@@ -19,6 +19,7 @@ public class GameManager {
 	public boolean gameOn = false;
 	public LevelControl levelController=null;
 	public static GameManager Instance;
+	public static long tempTimer=0;
 
 	public GameManager() {
 		currentLevel = 1;
@@ -37,7 +38,7 @@ public class GameManager {
 	    } catch (IOException ex) {
 	    } 
 		gameOn = true;
-		levelController = new LevelControl();
+		levelController = new LevelControl(currentLevel,player);
 		Update();
 	}
 
@@ -46,10 +47,13 @@ public class GameManager {
 		{
 			if (gameOn) 
 			{
+				tempTimer=0;
 				levelController.Update();
 			} 
 			else 
 			{
+				if(tempTimer==0)
+					tempTimer=System.currentTimeMillis();
 			}
 		}
 	}
@@ -62,16 +66,13 @@ public class GameManager {
                 activeMenu.setVisible(false);
                 activeMenu = new Tutorial();
                 activeMenu.setSize(690,320);
-                
                 activeMenu.setVisible(true);
 				break;
 			case "Credits":
                 activeMenu.setVisible(false);
                 activeMenu = new Credits();
                 activeMenu.setSize(800,500);
-                
                 activeMenu.setVisible(true);
-	                        
 				break;
 			case "CharacterSelection":
 				break;
@@ -90,9 +91,10 @@ public class GameManager {
                 activeMenu.setVisible(true);
 				break;
 			case "Game":
+                GameManager.Instance.gameOn=true;
                 activeMenu.setVisible(false);
                 activeMenu = new GameFrame(player);
-                activeMenu.setSize(750,420);
+                activeMenu.setSize(919,744);
                 activeMenu.setVisible(true);
                 break;
             case "Won":
@@ -103,7 +105,6 @@ public class GameManager {
                 break;
             case "Lost":
 	            activeMenu.setVisible(false);
-	            
 	            activeMenu = new LostPage();
 	            activeMenu.setSize(700,320);
 	            activeMenu.setVisible(true);
@@ -112,9 +113,7 @@ public class GameManager {
                 activeMenu.setVisible(false);
                 activeMenu = new BattleScreen();
                 activeMenu.setSize(800,500);
-                
                 activeMenu.setVisible(true);
-                    
             default:
         		break;
 		}

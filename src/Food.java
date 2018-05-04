@@ -4,12 +4,11 @@ public class Food extends Consumable {
     Food(int xPos, int yPos, BufferedImage currentImage, int numberOfItems, int increaseAmount,int maximumHealthChangeAmount){
         this.xPos = xPos;
         this.yPos = yPos;
-        this.increaseAmount = increaseAmount;
+        this.increaseAmount = 15;
         this.numberOfitems = numberOfItems;
         this.currentImage = currentImage;
         this.name = "food";
-        this.maximumHealthChangeAmount = maximumHealthChangeAmount;
-
+        this.maximumHealthChangeAmount = 10;
     }
 
     public void update(boolean isTaken){

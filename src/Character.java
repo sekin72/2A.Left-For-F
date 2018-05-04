@@ -3,9 +3,11 @@ import java.util.ArrayList;
 
 public class Character extends GameObject {
     int healthPoints;
+    int maximumHealth;
     String name;
     ArrayList<Attack> attacks = new ArrayList<Attack>();
 
+    int power;
 
     boolean isDead(){
         if(healthPoints == 0)
