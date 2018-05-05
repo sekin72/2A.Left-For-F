@@ -73,7 +73,6 @@ public class WinPage extends Menu {
     		GameManager.Instance.changeUI("MainMenu");
     	else
     	{
-    		GameManager.Instance.currentLevel++;
     		GameManager.Instance.createNewLevel();
     	}
     }//GEN-LAST:event_jButton1ActionPerformed

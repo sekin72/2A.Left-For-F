@@ -46,7 +46,7 @@ public class Tutorial extends Menu {
         jTextArea1.setFont(new java.awt.Font("Britannic Bold", 0, 14)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(240, 32, 32));
         jTextArea1.setRows(5);
-        jTextArea1.setText("You move around with W,A,S,D and pause game with P.\nYou can collect items simply by move over them and you will colect them automaticly.\nYou can escape from quizes and assignment by paying the escape penalty.\nYou can also escape from midterms but after qualify for minimum requirements. \nYou will also pay escape penalty for.\nTo fight simply click to atack move you want to use.\nIf you die you had to restart the level.\n\nHave fun.");
+        jTextArea1.setText("You move around with W,A,S,D, pause game with P and go to the item menu with I.\nYou can collect items simply by move over them and you will colect them automaticly.\nYou can escape from quizes by paying the escape penalty.\nTo fight simply click to attack.\nIf you die you had to restart the level.\n\nHave fun.");
         jTextArea1.setBorder(null);
         jTextArea1.setOpaque(false);
         jScrollPane1.setViewportView(jTextArea1);

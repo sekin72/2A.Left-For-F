@@ -1,0 +1,9 @@
+2
+True
+10
+100
+5
+1
+coffee
+1
+statEnhancement

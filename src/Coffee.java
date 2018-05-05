@@ -11,6 +11,11 @@ public class Coffee extends Consumable {
         this.currentImage = currentImage;
         this.name = "coffee";
     }
+    
+    Coffee()
+    {
+        this.name = "coffee";
+    }
     @Override
     public boolean isEnergyDrink() {
         return false;

@@ -11,4 +11,9 @@ public class StatEnchancement extends Enchancement {
         this.currentImage = currentImage;
         this.name="statEnhancement";
     }
+    
+    StatEnchancement()
+    {
+        this.name="statEnhancement";
+    }
 }

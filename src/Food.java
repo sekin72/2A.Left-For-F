@@ -10,6 +10,13 @@ public class Food extends Consumable {
         this.name = "food";
         this.maximumHealthChangeAmount = 10;
     }
+    Food()
+    {
+        this.increaseAmount = 15;
+        this.name = "food";
+        this.maximumHealthChangeAmount = 10;
+    	
+    }
 
     public void update(boolean isTaken){
         if(isTaken){

@@ -49,12 +49,11 @@ public class LevelControl {
 	}
 
 	public LevelControl(int currentLevel,Player playerr) {
-		enemies = new ArrayList<Enemy>();
-		items = new ArrayList<Item>();
 		player = playerr;
 		difficulty = currentLevel;
 		positionEnemies();
 		positionItems();
+		gamePause = false;
 		if(currentLevel==1)
 			GameManager.Instance.changeUI("CharacterSelection");
 		else
