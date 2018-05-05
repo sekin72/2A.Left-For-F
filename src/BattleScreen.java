@@ -101,7 +101,7 @@ public class BattleScreen extends Menu implements ActionListener{
     	{
 	    	case "Proffessor":
 	        	try {
-	        		enemyImage = ImageIO.read(new File(".\\Assets\\oak.png"));
+	        		enemyImage = ImageIO.read(new File(".\\Assets\\prof.png"));
 	    		    } catch (IOException ex) {
 	    		    } 
 	        	resize(enemyImage,30,50);
@@ -122,7 +122,7 @@ public class BattleScreen extends Menu implements ActionListener{
 	            break;
 	    	case "Project":
 	        	try {
-	        		enemyImage = ImageIO.read(new File(".\\Assets\\proj.png"));
+	        		enemyImage = ImageIO.read(new File(".\\Assets\\proj.jpg"));
 	    		    } catch (IOException ex) {
 	    		    } 
 	        	resize(enemyImage,30,50);
