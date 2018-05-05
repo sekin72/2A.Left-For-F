@@ -1,0 +1,132 @@
+/this is a test program
+begin
+
+set MySet;
+set YourSet;
+MySet = {"ALi","Veli",3,4,-2.9,{44,"GanyanBayi"},YourSet};
+foo(set A;set B;)begin
+	set C;
+	set D;
+	set E;
+	input**D**;
+	C = A%B;
+	E = C++D;
+	output**E**;
+end
+YourSet = {"hebelehbele"};
+foo(MySet,YourSet);
+foo2(;)
+foo2()
+end
+
+/Other test cases
+
+/boolean
+truefalse
+"a" = 8 ;
+"test" = {test};
+{"x",}# 
+{"1",}##
+{sdfs,}# 
+{"x",}<<{"x",}
+{"x",}<={"x",}
+/dot
+.
+/comma
+,
+/singlesetop
+'[]
+/setop
+*++%--
+/semicolon
+;
+/assignment operator
+=
+/setstate
+###
+/setrelation 
+=\/=<<[=]=*=<=*=*
+/right left paranthesys
+)(
+/right left currbrasys
+}{
+
+/id
+safd 
+yjuytuju
+YFGHFGH
+TEYuytY
+/expression
+"asda"
+-9846
+3.5
+{asdfasdf,}
+{24243513,}
+{"sdcs",}
+/funccall
+asdasdsa(sdfs,)
+asdTfTss(dgvgtv,)
+/input,output
+input**asdfasdf**
+output**davdvad**
+/return types 
+set name number void
+/{funcdef}
+thnt(set a; number b;)
+/return
+return
+/trials
+begin
+{()}
+({})
+asdf{()}
+asdasd({})
+begin
+
+set otherSet;
+otherSet = {"ALi","Veli",3,4,-2.9,};
+set = {"ALi","Veli",3,4,-2.9,{44,"GanyanBayi"},YourSet};
+void swapSet(set A;set B;)begin
+	set C;
+	C = A;
+	c = a;
+	A = B;
+	B = A;
+	return
+end
+swapSet(set A,set B);
+set A = MySet++otherSet;
+	set B;
+	set C;
+	set D;
+	set E;
+	set F;
+	set G;
+	set H;
+	set I;
+void testCases(MySet;otherSet;)begin
+	set A = MySet++otherSet;
+	set B = MySet%otherSet;
+	set C = MySet--otherSet;
+	set D = MySet';
+	set E = MySet[]otherSet;
+	set F = MySet<=otherSet;
+	set G = MySet=*=otherSet;
+	set H = =/=;
+	set I == otherSet;
+	return void;
+end 
+testCases(set MySet, set otherSet);
+number setLength(set A; number B;)begin
+	B = length(set A);
+	return number;
+end
+setLength(set A number B);
+name setName(set A; name str;)begin
+	str = name(set A);
+	return name;
+end
+name str;
+str == "";
+setName(set A, name str);
+end
