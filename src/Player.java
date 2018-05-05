@@ -25,17 +25,17 @@ public class Player extends Character{
     }
 
     BufferedImage originalImage = null;
+    Player()
+    {
+    }
+    
     Player(String name, BufferedImage currentImage){
         this.name = name;
         maximumHealth = 100;
         healthPoints = maximumHealth;
         this.currentImage = currentImage;
-        
-    	try {
-    		originalImage = ImageIO.read(new File(".\\Assets\\player.png"));
-        	resize(originalImage, 100,100);
-        } catch (IOException ex) {
-        } 
+        this.originalImage = currentImage;
+    	resize(originalImage, 100,100);
     	
         power = 10;
         xPos=20;
@@ -49,21 +49,22 @@ public class Player extends Character{
     }
 
     public void useItem(String name) {
-		if (name == "coffee") {
+    	switch(name)
+    	{
+    	case "coffee":
 			useCoffee();
-		}
-		if (name == "food") {
-			useFood();
-		}
-		if (name == "energyDrink") {
-			useEnergyDrink();
-		}
-		if (name == "skillEnhancement") {
-			power+=10;
-		}
-		if (name == "statEnhancement") {
-			moveSpeed+=5;
-		}
+			break;
+    	case "food":
+    		useFood();
+			break;
+    	case "energyDrink":
+    		useEnergyDrink();
+			break;
+    	case "skillEnhancement":
+    	case "statEnhancement":
+    		equipEnchancement(name);
+			break;
+    	}
 	}
     
     public boolean useEnergyDrink(){
@@ -109,11 +110,16 @@ public class Player extends Character{
 
     }
 
-    public void equipEnchancement(Enchancement x){
+    public void equipEnchancement(String name){
         for(int i = 0; i < enchancements.size(); i++){
-            if(enchancements.get(i).name == x.name) {
+            if(enchancements.get(i).name == name) {
                 enchancements.remove(i);
-                inUseItems.add(x);
+                if (name == "skillEnhancement") {
+        			power+=10;
+        		}
+        		if (name == "statEnhancement") {
+        			moveSpeed+=5;
+        		}
             }
         }
 

@@ -34,7 +34,6 @@ public class ItemMenu extends Menu
 {
 	JList list;
 	DefaultListModel model;
-	int counter = 15;
 	ImageIcon bgIcon;
 	
 	public ItemMenu() 
@@ -53,6 +52,10 @@ public class ItemMenu extends Menu
 		for (int i = 0; i < GameManager.Instance.levelController.player.itemList.size(); i++)
 		{
 			model.addElement(GameManager.Instance.levelController.player.itemList.get(i).name);
+		}
+		for (int i = 0; i < GameManager.Instance.levelController.player.enchancements.size(); i++)
+		{
+			model.addElement(GameManager.Instance.levelController.player.enchancements.get(i).name);
 		}
 		
 		backButton.addActionListener(new ActionListener() {

@@ -28,6 +28,7 @@ public class InputManager extends KeyAdapter{
 				break;
 			case KeyEvent.VK_P:
 				GameManager.Instance.levelController.Pause();
+				break;
 			case KeyEvent.VK_I:
 				GameManager.Instance.levelController.ItemMenu();
 				break;

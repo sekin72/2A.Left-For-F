@@ -13,8 +13,8 @@ import javax.swing.ImageIcon;
 public class GameManager {
 
 	private Audio music;
-	private int currentLevel;
-	private Player player;
+	public int currentLevel;
+	public Player player=null;
 	private Menu activeMenu = new MainMenu();
 	public boolean gameOn = false;
 	public LevelControl levelController=null;
@@ -24,7 +24,6 @@ public class GameManager {
 	public GameManager() {
 		currentLevel = 1;
 		Instance=this;
-		
 	}
 
 	public GameManager(int level) {
@@ -33,17 +32,25 @@ public class GameManager {
 	}
 
 	public void createNewLevel() {
-		try {
-		player = new Player("Ali", ImageIO.read(new File(".\\Assets\\player.png")));
-	    } catch (IOException ex) {
-	    } 
+		GameFrame.startTime=0;
+		GameManager.tempTimer=0;
+		System.out.println("New level is "+currentLevel);
+		if(player==null)
+		{
+			try {
+			player = new Player("Ali", ImageIO.read(new File(".\\Assets\\player.png")));
+		    } catch (IOException ex) {
+		    } 
+		}
+		player.xPos=20;
+		player.yPos=100;
+		player.healthPoints=player.maximumHealth;
 		gameOn = true;
 		levelController = new LevelControl(currentLevel,player);
 		Update();
 	}
 
 	public void Update() {
-		//while (true) 
 		{
 			if (gameOn) 
 			{
@@ -75,6 +82,10 @@ public class GameManager {
                 activeMenu.setVisible(true);
 				break;
 			case "CharacterSelection":
+                activeMenu.setVisible(false);
+                activeMenu = new CharacterSelection();
+                activeMenu.setSize(800,500);
+                activeMenu.setVisible(true);
 				break;
 			case "ItemMenu":
 				activeMenu.setVisible(false);
@@ -83,6 +94,10 @@ public class GameManager {
 	            activeMenu.setVisible(true);
 				break;
 			case "Pause":
+            	activeMenu.setVisible(false);
+				activeMenu = new PauseMenu();
+                activeMenu.setSize(810,400);
+                activeMenu.setVisible(true);
 				break;
 			case "MainMenu":
             	activeMenu.setVisible(false);
@@ -91,10 +106,11 @@ public class GameManager {
                 activeMenu.setVisible(true);
 				break;
 			case "Game":
-                GameManager.Instance.gameOn=true;
+				gameOn=true;
+				levelController.gamePause=false;
                 activeMenu.setVisible(false);
-                activeMenu = new GameFrame(player);
-                activeMenu.setSize(919,744);
+                activeMenu = new GameFrame();
+                activeMenu.setSize(1366,768);
                 activeMenu.setVisible(true);
                 break;
             case "Won":

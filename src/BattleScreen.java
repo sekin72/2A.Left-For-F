@@ -34,9 +34,9 @@ public class BattleScreen extends Menu implements ActionListener{
 	public Enemy enemy;
 	Timer timer;
 
-	ImageIcon playerImage;
-	ImageIcon enemyImage;
-
+	BufferedImage playerImage;
+	BufferedImage enemyImage;
+	
 	String healthBarEnemy, healthBarPlayer;
 	Font font;
 
@@ -60,7 +60,6 @@ public class BattleScreen extends Menu implements ActionListener{
 		itemsButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e) {
 				  GameManager.Instance.changeUI("ItemMenu");
-				  player.healthPoints-=enemy.power;
 			  }
 			});
 		
@@ -74,7 +73,6 @@ public class BattleScreen extends Menu implements ActionListener{
 					  GameManager.Instance.gameOn=true;
 					  GameManager.Instance.changeUI("Game");
 				  }
-				  player.healthPoints-=enemy.power;
 			  }
 			});
 			
@@ -86,21 +84,48 @@ public class BattleScreen extends Menu implements ActionListener{
 		
     	player=GameManager.Instance.levelController.player;
     	enemy=GameManager.Instance.levelController.enemy;
-    	playerImage = new ImageIcon(".\\Assets\\player.png");
+    	
+    	
+    	if(player.isMale)
+	    	try {
+	    		playerImage = ImageIO.read(new File(".\\Assets\\player.png"));
+			    } catch (IOException ex) {
+			    } 
+    	else
+	    	try {
+	    		playerImage = ImageIO.read(new File(".\\Assets\\female.png"));
+			    } catch (IOException ex) {
+			    } 
+    		
     	switch(enemy.name)
     	{
 	    	case "Proffessor":
-				  System.out.println("geldim");
-	        	enemyImage = new ImageIcon(".\\Assets\\prof.png");
+	        	try {
+	        		enemyImage = ImageIO.read(new File(".\\Assets\\oak.png"));
+	    		    } catch (IOException ex) {
+	    		    } 
+	        	resize(enemyImage,30,50);
 	            break;
 	    	case "Quiz":
-	        	enemyImage = new ImageIcon(".\\Assets\\quiz.png");
+	        	try {
+	        		enemyImage = ImageIO.read(new File(".\\Assets\\quiz.jpg"));
+	    		    } catch (IOException ex) {
+	    		    } 
+	        	resize(enemyImage,30,50);
 	            break;
 	    	case "Midterm":
-	        	enemyImage = new ImageIcon(".\\Assets\\mid.jpg");
+	        	try {
+	        		enemyImage = ImageIO.read(new File(".\\Assets\\mid.png"));
+	    		    } catch (IOException ex) {
+	    		    } 
+	        	resize(enemyImage,30,50);
 	            break;
 	    	case "Project":
-	        	enemyImage = new ImageIcon(".\\Assets\\proj.png");
+	        	try {
+	        		enemyImage = ImageIO.read(new File(".\\Assets\\proj.png"));
+	    		    } catch (IOException ex) {
+	    		    } 
+	        	resize(enemyImage,30,50);
 	            break;
 	    	default:
 	    		break;		
@@ -117,19 +142,26 @@ public class BattleScreen extends Menu implements ActionListener{
     	if(enemy.healthPoints==0)
     	{
     		if(enemy.name=="Proffessor")
-    		{
+    		{				
+    			GameManager.Instance.levelController.enemies.remove(GameManager.Instance.levelController.enemyLoc);
+    			GameManager.Instance.gameOn=false;
+    			GameFrame.startTime=0;
+    			GameManager.tempTimer=0;
     			GameManager.Instance.changeUI("Won");
     		}
     		else
     		{
 				GameManager.Instance.levelController.enemies.remove(GameManager.Instance.levelController.enemyLoc);
 				GameManager.Instance.levelController.enemy=null;
-				GameManager.Instance.gameOn=true;
 				GameManager.Instance.changeUI("Game");
     		}
     	}
-    	else if(player.healthPoints==0)
+    	else if(player.healthPoints<=0)
     	{
+			GameManager.Instance.levelController.enemies.remove(GameManager.Instance.levelController.enemyLoc);
+			GameManager.Instance.gameOn=false;
+			GameFrame.startTime=0;
+			GameManager.tempTimer=0;
 			GameManager.Instance.changeUI("Lost");
     	}
     }
@@ -139,9 +171,13 @@ public class BattleScreen extends Menu implements ActionListener{
     	healthBarPlayer = player.healthPoints + "/" + player.maximumHealth;
     	healthBarEnemy = enemy.healthPoints + "/" + enemy.maximumHealth;
     	super.paint(g);
-    	g.drawImage(playerImage.getImage(), 25,300, null);
-		g.drawImage(enemyImage.getImage(), 670,50, null);
+    	
+    	
+    	
+    	
     	Graphics2D g2d = (Graphics2D) g;
+    	g2d.drawImage(playerImage, 25,300,null);
+    	g2d.drawImage(enemyImage,670,50,null);
     	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     	g2d.setColor(Color.red);
     	g2d.setFont(font);
@@ -151,14 +187,14 @@ public class BattleScreen extends Menu implements ActionListener{
     	g2d.drawString(enemy.name, 650, 170);
     }
     
-    private BufferedImage resizeImage(ImageIcon img, int width, int height)
+    public void resize(BufferedImage originalImage, int w, int h)
     {
-    	BufferedImage resizedImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = resizedImage.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(img.getImage(), 0, 0, width, height, null);
-        g2.dispose();
-        return resizedImage;
+    	Image tmp = originalImage.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+	    BufferedImage dimg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D g = dimg.createGraphics();
+	    g.drawImage(tmp, 0, 0, null);
+	    g.dispose();
+	    originalImage = dimg; 
     }
 
     private BufferedImage flipImageHor(BufferedImage img)

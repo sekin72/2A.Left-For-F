@@ -26,16 +26,16 @@ public class GameFrame extends Menu implements ActionListener{
 	ImageIcon bgIcon;
 	String healthBar, timerBar;
 	Font font;
-	static long startTime=0;;
+	static long startTime=0;
 	
-    public GameFrame(Player playah) {
+    public GameFrame() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     	setFocusable(true);
-    	player =playah;
+    	player = GameManager.Instance.player;
     	addKeyListener(new InputManager());
     	timer = new Timer(50,this);
     	timer.start();
-		bgIcon = new ImageIcon(".\\Assets\\map.png");
+		bgIcon = new ImageIcon(".\\Assets\\city.png");
 		healthBar = player.healthPoints + "/" + player.maximumHealth;
 		font= new Font("Calibri", Font.PLAIN,36);
 		getContentPane().setBackground(Color.black);
@@ -45,6 +45,9 @@ public class GameFrame extends Menu implements ActionListener{
     {
     	if(GameManager.Instance.gameOn)
     		startTime++;
+    	else
+    		startTime=0;
+    		
     	if(startTime/18 > 50)
     	{
     		startTime=0;
@@ -53,7 +56,7 @@ public class GameFrame extends Menu implements ActionListener{
     	
 		healthBar = player.healthPoints + "/" + player.maximumHealth;
     	super.paint(g);
-    	g.drawImage(bgIcon.getImage(), GameManager.Instance.levelController.moveDisX, GameManager.Instance.levelController.moveDisY, null);
+    	g.drawImage(bgIcon.getImage(), GameManager.Instance.levelController.moveDisX, GameManager.Instance.levelController.moveDisY+50, null);
     	Graphics2D g2d = (Graphics2D) g;
     	for(int i=0;i<GameManager.Instance.levelController.items.size();i++)
     	{

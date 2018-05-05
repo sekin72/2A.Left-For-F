@@ -32,12 +32,6 @@ public class LevelControl {
 	
 	public LevelControl() 
 	{
-		try {
-    		player = new Player("Ali", ImageIO.read(new File(".\\Assets\\player.png")));
-    		GameManager.Instance.changeUI("Game");
-        } catch (IOException ex) {
-        } 
-		
 		difficulty = 1;
 		positionEnemies();
 		positionItems();
@@ -54,18 +48,22 @@ public class LevelControl {
 		moveDisY=level.moveDisY;
 	}
 
-	public LevelControl(int currentLevel, Player playah) {
-		player = playah;
+	public LevelControl(int currentLevel,Player playerr) {
+		player = playerr;
 		difficulty = currentLevel;
 		positionEnemies();
 		positionItems();
-		GameManager.Instance.changeUI("Game");
+		if(currentLevel==1)
+			GameManager.Instance.changeUI("CharacterSelection");
+		else
+			GameManager.Instance.changeUI("Game");
+			
 	}
 
 	public void Update() {
 		if (gamePause) {
-			GameManager.Instance.changeUI("Pause");
 		} else {
+			player=GameManager.Instance.player;
 			checkGameEnd();
 			findEnemies();
 			findItemCollision();
@@ -79,6 +77,8 @@ public class LevelControl {
 		if (player.healthPoints == 0 || timeRanOut)
 		{
 			GameManager.Instance.gameOn=false;
+			GameFrame.startTime=0;
+			GameManager.tempTimer=0;
 			GameManager.Instance.changeUI("Lost");
 			timeRanOut=false;
 			return true;
@@ -97,18 +97,18 @@ public class LevelControl {
 		for (int i = 0; i < difficulty; i++) {
 			enemies.add(new Midterm(rand.nextInt(200)+500, rand.nextInt(640), null, "Midterm", 0, 20));
 			enemies.get(i).power =5*difficulty;
-		}
+		}*/
 		for (int i = 0; i < difficulty-1; i++) {
 			enemies.add(new Project(rand.nextInt(200)+700, rand.nextInt(640), null, "Project"));
 			enemies.get(i).power =7*difficulty;
-		}*/
+		}
 		enemies.add(new Teacher(true, rand.nextInt(200)+900, rand.nextInt(640), null, "Proffessor"));
 		enemies.get(enemies.size()-1).power =10*difficulty;
 		
 		for (int i = 0; i < enemies.size(); i++) 
 		{
-			enemies.get(i).maximumHealth=100*difficulty;
-			enemies.get(i).healthPoints=100*difficulty;
+			enemies.get(i).maximumHealth=50*difficulty;
+			enemies.get(i).healthPoints=50*difficulty;
 		}
 	}
 
@@ -179,12 +179,12 @@ public class LevelControl {
 		if (enemies.size() == 0) {
 			return;
 		}
-		for (int i = 0; i < difficulty; i++) {
+		for (int i = 0; i < enemies.size(); i++) {
 			if (enemies.get(i).xPos+15 >= player.xPos &&  enemies.get(i).xPos+15 <= player.xPos+100)
 			{
 				enemy = enemies.get(i);
 				enemyLoc=i;
-				GameManager.Instance.gameOn=false;
+				gamePause = true;
 				GameManager.Instance.changeUI("Battle");
 			}
 		}
