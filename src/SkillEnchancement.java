@@ -11,4 +11,9 @@ public class SkillEnchancement extends Enchancement {
         this.currentImage = currentImage;
         this.name="skillEnhancement";
     }
+    
+    SkillEnchancement()
+    {
+        this.name="skillEnhancement";
+    }
 }

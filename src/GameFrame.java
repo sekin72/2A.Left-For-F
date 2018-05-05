@@ -48,7 +48,7 @@ public class GameFrame extends Menu implements ActionListener{
     	else
     		startTime=0;
     		
-    	if(startTime/18 > 50)
+    	if(startTime/18 > 75)
     	{
     		startTime=0;
     		GameManager.Instance.levelController.timeRanOut=true;

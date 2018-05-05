@@ -49,6 +49,19 @@ public class GameManager {
 		levelController = new LevelControl(currentLevel,player);
 		Update();
 	}
+	
+	public void createNewLevel(Player playerr, int dif) {
+		GameFrame.startTime=0;
+		GameManager.tempTimer=0;
+		currentLevel=dif;
+		System.out.println("New level is "+currentLevel);
+		player=playerr;
+		player.xPos=20;
+		player.yPos=100;
+		gameOn = true;
+		levelController = new LevelControl(currentLevel,player);
+		Update();
+	}
 
 	public void Update() {
 		{
@@ -107,8 +120,9 @@ public class GameManager {
 				break;
 			case "Game":
 				gameOn=true;
-				levelController.gamePause=false;
                 activeMenu.setVisible(false);
+                if(levelController != null)
+                	levelController.gamePause=false;
                 activeMenu = new GameFrame();
                 activeMenu.setSize(1366,768);
                 activeMenu.setVisible(true);

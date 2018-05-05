@@ -10,6 +10,11 @@ public class EnergyDrink extends Consumable{
         this.currentImage = currentImage;
         this.name = "energyDrink";
     }
+    
+    EnergyDrink()
+    {
+        this.name = "energyDrink";
+    }
 
     public void update(boolean isTaken){
         if(isTaken){

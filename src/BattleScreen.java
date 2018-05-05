@@ -147,6 +147,15 @@ public class BattleScreen extends Menu implements ActionListener{
     			GameManager.Instance.gameOn=false;
     			GameFrame.startTime=0;
     			GameManager.tempTimer=0;
+        		GameManager.Instance.currentLevel++;
+    			try
+    			{
+    				FileManager.saveGame(GameManager.Instance.levelController.player);
+    			}
+    			catch(IOException e)
+    			{
+    				
+    			}
     			GameManager.Instance.changeUI("Won");
     		}
     		else
@@ -181,9 +190,9 @@ public class BattleScreen extends Menu implements ActionListener{
     	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     	g2d.setColor(Color.red);
     	g2d.setFont(font);
-    	g2d.drawString(healthBarPlayer, 25, 330);
+    	g2d.drawString(healthBarPlayer, 25, 290);
     	g2d.drawString(healthBarEnemy, 650, 220);
-    	g2d.drawString("Player", 25, 280);
+    	g2d.drawString("Player", 25, 250);
     	g2d.drawString(enemy.name, 650, 170);
     }
     
