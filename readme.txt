@@ -3,11 +3,9 @@ Bilkent University Spring 2018 CS319 Section 2 Group 2A Course Project
 
 This project is created as the course project of Bilkent University Spring 2018 CS319 Section 2 Group 2A by the following authors:
 
-Ali Can Zeybek
+Sekip Kaan Ekin
 
 Ömer Faruk Geredeli
-
-Þekip Kaan Ekin
 
 Course Instructor: Ugur Doðrusöz
 
